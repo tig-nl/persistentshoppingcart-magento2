@@ -1,6 +1,6 @@
 {
   "name": "tig/persistent-shopping-cart-magento2",
-  "description": "TIG Magento 2 MaxCDN extension",
+  "description": "Extends Magento 2's core Persistent Shopping Cart with sessions/cookies for Guests.",
   "version": "1.0.0",
   "require": {
     "php": "~7.0|~7.1",
