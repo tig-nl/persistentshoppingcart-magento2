@@ -1,0 +1,8 @@
+{
+  "name": "TIG_PersistentShoppingCart",
+  "version": "1.0.0",
+  "description": "Extends Magento 2's core Persistent Shopping Cart with sessions/cookies for Guests.",
+  "author": "TIG",
+  "license": "CC-BY-NC-ND-3.0",
+  "homepage": "https://tig.nl/"
+}

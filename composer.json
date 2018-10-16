@@ -1,0 +1,32 @@
+{
+  "name": "tig/persistent-shopping-cart-magento2",
+  "description": "TIG Magento 2 MaxCDN extension",
+  "version": "1.0.0",
+  "require": {
+    "php": "~7.0|~7.1",
+    "magento/framework": ">=100.1.0,<=100.1.12|>=101.0.0,<=101.0.3"
+  },
+  "type": "magento2-module",
+  "license": "CC-BY-NC-ND-3.0",
+  "authors": [
+    {
+      "name": "TIG",
+      "email": "servicedesk@tig.nl",
+      "homepage": "https://tig.nl"
+    }
+  ],
+  "support": {
+    "email": "servicedesk@tig.nl",
+    "issues": "http://servicedesk.tig.nl/hc/nl/requests/new"
+  },
+  "homepage": "https://tig.nl",
+  "minimum-stability": "stable",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "TIG\\PersistentShoppingCart\\": ""
+    }
+  }
+}
