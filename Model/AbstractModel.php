@@ -43,27 +43,27 @@ abstract class AbstractModel extends FrameworkAbstractModel
     /**
      * @var string
      */
-    protected $cookieName = 'shopping_cart_cookie';
+    public $cookieName = 'shopping_cart_cookie';
 
     /**
      * @var \Magento\Framework\Session\Config\ConfigInterface $sessionConfig
      */
-    protected $sessionConfig;
+    private $sessionConfig;
 
     /**
      * @var \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager
      */
-    protected $cookieManager;
+    private $cookieManager;
 
     /**
-     * @var \Magento\Framework\Stdlib\Cookie\CookieMetadata|\Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata
+     * @var \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata
      */
-    protected $cookieMetadata;
+    private $cookieMetadata;
 
     /**
      * @var \TIG\PersistentShoppingCart\Helper\Data $helper
      */
-    protected $helper;
+    private $helper;
 
     /**
      * AbstractModel constructor.
@@ -76,18 +76,16 @@ abstract class AbstractModel extends FrameworkAbstractModel
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
-     * @param array $data
      */
     public function __construct(
-        ConfigInterface                                         $sessionConfig,
-        CookieManagerInterface                                  $cookieManager,
-        CookieMetadataFactory                                   $cookieMetadata,
-        Helper                                                  $helper,
-        \Magento\Framework\Model\Context                        $context,
-        \Magento\Framework\Registry                             $registry,
+        ConfigInterface $sessionConfig,
+        CookieManagerInterface $cookieManager,
+        CookieMetadataFactory $cookieMetadata,
+        Helper $helper,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb           $resourceCollection = null,
-        array $data = []
+        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null
     ) {
         $this->sessionConfig  = $sessionConfig;
         $this->cookieManager  = $cookieManager;
@@ -107,14 +105,14 @@ abstract class AbstractModel extends FrameworkAbstractModel
      *
      * @return \TIG\PersistentShoppingCart\Model\AbstractModel $this
      */
-    public abstract function readCookie();
+    abstract public function readCookie();
 
     /**
      * Update cookie with latest data.
      *
      * @return \TIG\PersistentShoppingCart\Model\AbstractModel $this
      */
-    public abstract function writeCookie();
+    abstract public function writeCookie();
 
     /**
      * @return $this
@@ -135,7 +133,7 @@ abstract class AbstractModel extends FrameworkAbstractModel
     /**
      * @return null|string
      */
-    protected function _readCookie()
+    public function _readCookie()
     {
         $value = $this->cookieManager->getCookie($this->cookieName);
 
@@ -151,7 +149,7 @@ abstract class AbstractModel extends FrameworkAbstractModel
      * @throws \Magento\Framework\Stdlib\Cookie\CookieSizeLimitReachedException
      * @throws \Magento\Framework\Stdlib\Cookie\FailureToSendException
      */
-    protected function _updateCookie($value)
+    public function _updateCookie($value)
     {
         if ($this->helper->isCookieRestricted()) {
             return;
@@ -173,7 +171,7 @@ abstract class AbstractModel extends FrameworkAbstractModel
      * @throws \Magento\Framework\Stdlib\Cookie\CookieSizeLimitReachedException
      * @throws \Magento\Framework\Stdlib\Cookie\FailureToSendException
      */
-    protected function processClientCookie($value)
+    private function processClientCookie($value)
     {
         $metadata = $this->cookieMetadata
             ->createPublicCookieMetadata()

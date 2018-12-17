@@ -36,9 +36,14 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection
 {
-    public function _construct(
-    ) {
-        $this->_init('TIG\PersistentShoppingCart\Model\AbstractModel',
-            'TIG\PersistentShoppingCart\Model\ResourceModel\QuoteCookie');
+    /**
+     * Initialize Resource Model
+     */
+    public function _construct()
+    {
+        $this->_init(
+            'TIG\PersistentShoppingCart\Model\AbstractModel',
+            'TIG\PersistentShoppingCart\Model\ResourceModel\QuoteCookie'
+        );
     }
 }

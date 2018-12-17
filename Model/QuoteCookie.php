@@ -32,15 +32,63 @@
 
 namespace TIG\PersistentShoppingCart\Model;
 
-use TIG\PersistentShoppingCart\Model\AbstractToken;
+use Magento\Checkout\Model\SessionFactory as CheckoutSession;
+use Magento\Customer\Model\SessionFactory as CustomerSession;
 
 class QuoteCookie extends AbstractToken
 {
+    /** @var \Magento\Checkout\Model\SessionFactory */
+    private $checkoutSession;
+
+    /** @var \Magento\Customer\Model\SessionFactory */
+    private $customerSession;
+
+    /**
+     * QuoteCookie constructor.
+     *
+     * @param \Magento\Checkout\Model\SessionFactory $checkoutSession
+     * @param \Magento\Customer\Model\SessionFactory $customerSession
+     * @param \Magento\Framework\Session\Config\ConfigInterface $sessionConfig
+     * @param \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager
+     * @param \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata
+     * @param \TIG\PersistentShoppingCart\Helper\Data $helper
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
+     * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
+     */
+    public function __construct(
+        CheckoutSession $checkoutSession,
+        CustomerSession $customerSession,
+        \Magento\Framework\Session\Config\ConfigInterface $sessionConfig,
+        \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager,
+        \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata,
+        \TIG\PersistentShoppingCart\Helper\Data $helper,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null
+    ) {
+        $this->checkoutSession = $checkoutSession;
+        $this->customerSession = $customerSession;
+
+        parent::__construct(
+            $sessionConfig,
+            $cookieManager,
+            $cookieMetadata,
+            $helper,
+            $context,
+            $registry,
+            $resource,
+            $resourceCollection
+        );
+    }
+
     /**
      * Initialize ResourceModel
      */
-    public function _construct(
-    ) {
+    public function _construct()
+    {
         $this->_init('\TIG\PersistentShoppingCart\Model\ResourceModel\QuoteCookie');
     }
 
@@ -64,5 +112,21 @@ class QuoteCookie extends AbstractToken
         parent::writeCookie();
 
         return $this;
+    }
+
+    /**
+     * @return \Magento\Checkout\Model\Session
+     */
+    public function getCheckoutSession()
+    {
+        return $this->checkoutSession->create();
+    }
+
+    /**
+     * @return \Magento\Customer\Model\Session
+     */
+    public function getCustomerSession()
+    {
+        return $this->customerSession->create();
     }
 }

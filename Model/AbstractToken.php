@@ -32,8 +32,6 @@
 
 namespace TIG\PersistentShoppingCart\Model;
 
-use TIG\PersistentShoppingCart\Model\AbstractModel;
-
 class AbstractToken extends AbstractModel
 {
     /**
@@ -41,14 +39,14 @@ class AbstractToken extends AbstractModel
      *
      * @var string
      */
-    protected $_tokenField = 'token';
+    private $tokenField = 'token';
 
     /**
      * Expected length of token values in characters.
      *
      * @var int
      */
-    protected $_tokenLength = 32;
+    private $tokenLength = 32;
 
     /**
      * @return $this|\TIG\PersistentShoppingCart\Model\AbstractModel
@@ -68,11 +66,11 @@ class AbstractToken extends AbstractModel
      */
     public function getToken()
     {
-        if (!$this->hasData($this->_tokenField)) {
-            $this->setData($this->_tokenField, $this->generateToken());
+        if (!$this->hasData($this->tokenField)) {
+            $this->setData($this->tokenField, $this->generateToken());
         }
 
-        return $this->getData($this->_tokenField);
+        return $this->getData($this->tokenField);
     }
 
     /**
@@ -85,19 +83,19 @@ class AbstractToken extends AbstractModel
      */
     public function generateToken($length = null)
     {
-        $length = $length ? $length : $this->_tokenLength;
+        $length = $length ? $length : $this->tokenLength;
 
-        return strtr(base64_encode(openssl_random_pseudo_bytes($length * 0.75)), '+/' , '..');
+        return strtr(base64_encode(openssl_random_pseudo_bytes($length * 0.75)), '+/', '..');
     }
 
     /**
-     * @todo replace deprecated load method.
+     * @TODO replace deprecated load method.
      *
      * @return \TIG\PersistentShoppingCart\Model\AbstractModel|\TIG\PersistentShoppingCart\Model\AbstractToken
      */
     public function readCookie()
     {
-        return $this->load($this->_readCookie(), $this->_tokenField);
+        return $this->load($this->_readCookie(), $this->tokenField);
     }
 
     /**

@@ -73,6 +73,9 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $setup->getTable('quote'),
             'entity_id',
             \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+        )->addIndex(
+            $setup->getIdxName('shopping_cart_cookie', ['quote_id']),
+            ['quote_id']
         );
 
         $setup->getConnection()->createTable($table);

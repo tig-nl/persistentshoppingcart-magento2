@@ -33,23 +33,23 @@
 namespace TIG\PersistentShoppingCart\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Cookie\Helper\Cookie as CookieHelper;
+use Magento\Cookie\Helper\CookieFactory as CookieHelper;
 
 class Data extends AbstractHelper
 {
     /**
-     * @var \Magento\Cookie\Helper\Cookie $cookieHelper
+     * @var \Magento\Cookie\Helper\CookieFactory $cookieHelper
      */
-    protected $cookieHelper;
+    private $cookieHelper;
 
     /**
      * Data constructor.
      *
-     * @param \Magento\Cookie\Helper\Cookie $cookieHelper
+     * @param \Magento\Cookie\Helper\CookieFactory $cookieHelper
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
-        CookieHelper                          $cookieHelper,
+        CookieHelper $cookieHelper,
         \Magento\Framework\App\Helper\Context $context
     ) {
         $this->cookieHelper = $cookieHelper;
@@ -60,12 +60,20 @@ class Data extends AbstractHelper
     }
 
     /**
+     * @return \Magento\Cookie\Helper\Cookie
+     */
+    private function getCookieHelper()
+    {
+        return $this->cookieHelper->create();
+    }
+
+    /**
      * Check if Cookie Restriction Mode is enabled.
      *
      * @return bool
      */
     public function isCookieRestricted()
     {
-        return $this->cookieHelper->isUserNotAllowSaveCookie();
+        return $this->getCookieHelper()->isUserNotAllowSaveCookie();
     }
 }

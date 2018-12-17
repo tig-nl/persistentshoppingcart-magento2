@@ -32,8 +32,6 @@
 
 namespace TIG\PersistentShoppingCart\Observer;
 
-use Magento\Checkout\Model\Session as CheckoutSession;
-use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use TIG\PersistentShoppingCart\Model\QuoteCookie;
@@ -41,35 +39,19 @@ use TIG\PersistentShoppingCart\Model\QuoteCookie;
 class SendResponseBefore implements ObserverInterface
 {
     /**
-     * @var \Magento\Checkout\Model\Session $checkoutSession
-     */
-    protected $checkoutSession;
-
-    /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    protected $customerSession;
-
-    /**
      * @var \TIG\PersistentShoppingCart\Model\QuoteCookie $quoteCookie
      */
-    protected $quoteCookie;
+    private $quoteCookie;
 
     /**
      * SendResponseBefore constructor.
      *
-     * @param \Magento\Checkout\Model\Session $checkoutSession
-     * @param \Magento\Customer\Model\Session $customerSession
      * @param \TIG\PersistentShoppingCart\Model\QuoteCookie $quoteCookie
      */
     public function __construct(
-        CheckoutSession $checkoutSession,
-        CustomerSession $customerSession,
-        QuoteCookie     $quoteCookie
+        QuoteCookie $quoteCookie
     ) {
-        $this->checkoutSession = $checkoutSession;
-        $this->customerSession = $customerSession;
-        $this->quoteCookie     = $quoteCookie;
+        $this->quoteCookie = $quoteCookie;
     }
 
     /**
@@ -94,9 +76,10 @@ class SendResponseBefore implements ObserverInterface
      * @throws \Magento\Framework\Stdlib\Cookie\CookieSizeLimitReachedException
      * @throws \Magento\Framework\Stdlib\Cookie\FailureToSendException
      */
-    public function writeCartCookie()
+    private function writeCartCookie()
     {
-        if (!$this->customerSession->isLoggedIn()) {
+        $customerSession = $this->quoteCookie->getCustomerSession();
+        if (!$customerSession->isLoggedIn()) {
             $quote = $this->getQuote();
 
             $this->processCookie($quote);
@@ -117,7 +100,7 @@ class SendResponseBefore implements ObserverInterface
      * @throws \Magento\Framework\Stdlib\Cookie\CookieSizeLimitReachedException
      * @throws \Magento\Framework\Stdlib\Cookie\FailureToSendException
      */
-    protected function processCookie(QuoteCookie $quote)
+    private function processCookie(QuoteCookie $quote)
     {
         if (!$quote->isObjectNew()) {
             $quote->writeCookie();
@@ -129,15 +112,14 @@ class SendResponseBefore implements ObserverInterface
     }
 
     /**
-     * @todo: replace deprecated load and save methods.
      *
      * @return \TIG\PersistentShoppingCart\Model\QuoteCookie
      * @throws \Exception
      */
-    protected function getQuote()
+    private function getQuote()
     {
         $quote   = $this->quoteCookie;
-        $quoteId = $this->checkoutSession->getQuoteId();
+        $quoteId = $quote->getCheckoutSession()->getQuoteId();
 
         if ($quoteId && $quote->isObjectNew()) {
             $this->processQuote($quote, $quoteId);
@@ -149,12 +131,14 @@ class SendResponseBefore implements ObserverInterface
     /**
      * Load Quote object. If there's nothing to load, create it.
      *
+     * @todo replace deprecated load()- and save()-methods.
+     *
      * @param \TIG\PersistentShoppingCart\Model\QuoteCookie $quote
      * @param $quoteId
      *
      * @throws \Exception
      */
-    protected function processQuote(QuoteCookie $quote, $quoteId)
+    private function processQuote(QuoteCookie $quote, $quoteId)
     {
         $quote->load($quoteId);
 

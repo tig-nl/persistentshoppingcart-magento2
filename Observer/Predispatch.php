@@ -32,44 +32,28 @@
 
 namespace TIG\PersistentShoppingCart\Observer;
 
-use Magento\Checkout\Model\Session as CheckoutSession;
-use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use TIG\PersistentShoppingCart\Model\QuoteCookie;
 
-class Predispatch implements ObserverInterface {
-
-    /**
-     * @var \Magento\Checkout\Model\Session $checkoutSession
-     */
-    protected $checkoutSession;
-
-    /**
-     * @var \Magento\Customer\Model\Session $customerSession
-     */
-    protected $customerSession;
-
+class Predispatch implements ObserverInterface
+{
     /**
      * @var \TIG\PersistentShoppingCart\Model\QuoteCookie $quoteCookie
      */
-    protected $quoteCookie;
+    private $quoteCookie;
 
     /**
      * Predispatch constructor.
      *
-     * @param \Magento\Checkout\Model\Session $checkoutSession
-     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Checkout\Model\SessionFactory $checkoutSession
+     * @param \Magento\Customer\Model\SessionFactory $customerSession
      * @param \TIG\PersistentShoppingCart\Model\QuoteCookie $quoteCookie
      */
     public function __construct(
-        CheckoutSession $checkoutSession,
-        CustomerSession $customerSession,
-        QuoteCookie     $quoteCookie
+        QuoteCookie $quoteCookie
     ) {
-        $this->checkoutSession = $checkoutSession;
-        $this->customerSession = $customerSession;
-        $this->quoteCookie     = $quoteCookie;
+        $this->quoteCookie = $quoteCookie;
     }
 
     /**
@@ -84,25 +68,26 @@ class Predispatch implements ObserverInterface {
     /**
      * Read cookie's value before cart is manipulated.
      */
-    public function readCartCookie()
+    private function readCartCookie()
     {
-        if ($this->customerSession->isLoggedIn()) {
+        $customerSession = $this->quoteCookie->getCustomerSession();
+        if ($customerSession->isLoggedIn()) {
             return;
         }
 
         /**
          * If Cart is already in use, do not override.
          */
-        $checkoutSession = $this->checkoutSession;
+        $checkoutSession = $this->quoteCookie->getCheckoutSession();
         if ($checkoutSession->getQuoteId()) {
             return;
         }
 
         /**
-         * Get quote_cookie data from custom table. If $quote_cookie->getId() exists, set it as the ID of the current quote.
+         * Get quote_cookie data from custom table. If $quote_cookie->getId() exists,
+         * set it as the ID of the current quote.
          */
         $quote = $this->quoteCookie->readCookie();
-
         if ($quote->getId()) {
             $checkoutSession->setQuoteId($quote->getId());
             $checkoutSession->resetCheckout();
