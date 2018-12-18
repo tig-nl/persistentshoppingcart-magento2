@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * @codingStandardsIgnoreStart
  *          ..::..
  *     ..::::::::::::..
  *   ::'''''':''::'''''::
@@ -28,6 +28,7 @@
  *
  * @copyright   Copyright (c) Total Internet Group B.V. https://tig.nl/copyright
  * @license     http://creativecommons.org/licenses/by-nc-nd/3.0/nl/deed.en_US
+ * @codingStandardsIgnoreEnd
  */
 
 namespace TIG\PersistentShoppingCart\Observer;
@@ -58,10 +59,14 @@ class Predispatch implements ObserverInterface
 
     /**
      * @param \Magento\Framework\Event\Observer $observer
+     *
+     * @codingStandardsIgnoreStart
+     * $observer is never used and that's correct.
      */
     public function execute(
         Observer $observer
     ) {
+        // @codingStandardsIgnoreEnd
         $this->readCartCookie();
     }
 

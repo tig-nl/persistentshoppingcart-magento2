@@ -61,10 +61,13 @@ class SendResponseBefore implements ObserverInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Stdlib\Cookie\CookieSizeLimitReachedException
      * @throws \Magento\Framework\Stdlib\Cookie\FailureToSendException
+     *
+     * @codingStandardsIgnoreStart
      */
     public function execute(
         Observer $observer
     ) {
+        // @codingStandardsIgnoreEnd
         $this->writeCartCookie();
     }
 
@@ -130,8 +133,6 @@ class SendResponseBefore implements ObserverInterface
 
     /**
      * Load Quote object. If there's nothing to load, create it.
-     *
-     * @todo replace deprecated load()- and save()-methods.
      *
      * @param \TIG\PersistentShoppingCart\Model\QuoteCookie $quote
      * @param $quoteId

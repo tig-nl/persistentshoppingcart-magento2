@@ -42,9 +42,13 @@ class UpgradeSchema implements UpgradeSchemaInterface
      * @param \Magento\Framework\Setup\ModuleContextInterface $context
      *
      * @throws \Zend_Db_Exception
+     *
+     * @codingStandardsIgnoreStart
+     * $context is not used and that's correct
      */
     public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
+        // @codingStandardsIgnoreEnd
         $setup->startSetup();
 
         $table = $setup->getConnection()->newTable(

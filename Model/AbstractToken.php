@@ -89,8 +89,6 @@ class AbstractToken extends AbstractModel
     }
 
     /**
-     * @TODO replace deprecated load method.
-     *
      * @return \TIG\PersistentShoppingCart\Model\AbstractModel|\TIG\PersistentShoppingCart\Model\AbstractToken
      */
     public function readCookie()
