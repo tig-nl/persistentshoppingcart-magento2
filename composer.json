@@ -4,7 +4,8 @@
   "version": "1.0.2",
   "require": {
     "php": "~7.0|~7.1|~7.2",
-    "magento/framework": "100.*|101.*|102.*"
+    "magento/framework": "100.*|101.*|102.*",
+    "tig/core": "*"
   },
   "type": "magento2-module",
   "license": "CC-BY-NC-ND-3.0",
