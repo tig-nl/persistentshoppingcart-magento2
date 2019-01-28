@@ -66,8 +66,14 @@ class Predispatch implements ObserverInterface
     public function execute(
         Observer $observer
     ) {
-        // @codingStandardsIgnoreEnd
-        $this->readCartCookie();
+
+        /**
+         * When module status is true, then it will run
+         */
+        if($this->quoteCookie->getModuleStatus()){
+            // @codingStandardsIgnoreEnd
+            $this->readCartCookie();
+        }
     }
 
     /**

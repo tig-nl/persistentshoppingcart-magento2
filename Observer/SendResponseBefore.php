@@ -67,8 +67,14 @@ class SendResponseBefore implements ObserverInterface
     public function execute(
         Observer $observer
     ) {
-        // @codingStandardsIgnoreEnd
-        $this->writeCartCookie();
+
+        /**
+         * When module status is true, then it will run
+         */
+        if($this->quoteCookie->getModuleStatus()){
+            // @codingStandardsIgnoreEnd
+            $this->writeCartCookie();
+        }
     }
 
     /**
