@@ -72,9 +72,10 @@ class SendResponseBefore implements ObserverInterface
          * When module status is true, then it will run
          */
         if($this->quoteCookie->getModuleStatus()){
-            // @codingStandardsIgnoreEnd
-            $this->writeCartCookie();
+            return;
         }
+
+        $this->writeCartCookie();
     }
 
     /**
