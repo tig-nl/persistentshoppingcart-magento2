@@ -35,6 +35,7 @@ namespace TIG\PersistentShoppingCart\Model;
 use Magento\Checkout\Model\SessionFactory as CheckoutSession;
 use Magento\Customer\Model\SessionFactory as CustomerSession;
 
+
 class QuoteCookie extends AbstractToken
 {
     /** @var \Magento\Checkout\Model\SessionFactory */
@@ -42,6 +43,11 @@ class QuoteCookie extends AbstractToken
 
     /** @var \Magento\Customer\Model\SessionFactory */
     private $customerSession;
+
+    /**
+     * Config path to module status
+     */
+    const XPATH_MODULE_ENABLED = 'tig_persistantshoppingcart/general/enabled';
 
     /**
      * QuoteCookie constructor.
@@ -56,11 +62,13 @@ class QuoteCookie extends AbstractToken
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         CheckoutSession $checkoutSession,
         CustomerSession $customerSession,
         \Magento\Framework\Session\Config\ConfigInterface $sessionConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager,
         \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata,
         \TIG\PersistentShoppingCart\Helper\Data $helper,
@@ -71,6 +79,7 @@ class QuoteCookie extends AbstractToken
     ) {
         $this->checkoutSession = $checkoutSession;
         $this->customerSession = $customerSession;
+        $this->scopeConfig = $scopeConfig;
 
         parent::__construct(
             $sessionConfig,
@@ -128,5 +137,17 @@ class QuoteCookie extends AbstractToken
     public function getCustomerSession()
     {
         return $this->customerSession->create();
+    }
+
+    /**
+     * @return boolean
+     * Check module config status
+     */
+    public function getModuleStatus()
+    {
+        return $this->scopeConfig->getValue(
+            self::XPATH_MODULE_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
     }
 }

@@ -66,7 +66,14 @@ class Predispatch implements ObserverInterface
     public function execute(
         Observer $observer
     ) {
-        // @codingStandardsIgnoreEnd
+
+        /**
+         * When module status is false, then it will not run readCartCookie
+         */
+        if(!$this->quoteCookie->getModuleStatus()){
+            return;
+        }
+
         $this->readCartCookie();
     }
 
