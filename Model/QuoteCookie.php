@@ -44,10 +44,13 @@ class QuoteCookie extends AbstractToken
     /** @var \Magento\Customer\Model\SessionFactory */
     private $customerSession;
 
+    /** @var \Magento\Framework\App\Config\ScopeConfigInterface */
+    private $scopeConfig;
+
     /**
      * Config path to module status
      */
-    const XPATH_MODULE_ENABLED = 'tig_persistantshoppingcart/general/enabled';
+    const XPATH_MODULE_ENABLED = 'tig_persistentshoppingcart/general/enabled';
 
     /**
      * QuoteCookie constructor.
