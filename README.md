@@ -1,11 +1,16 @@
 # Persistent Shopping Cart for Guests
+
 ## A Magento 2 module developed by TIG
 
-Extends the core Magento 2 Persistent Shopping Cart with Cookies/Sessions for Guests.
+Extends the core Magento 2 Persistent Shopping Cart with Cookies/Sessions for Guests by saving the session's Shopping Cart data to a cookie within the guest's browser. 
+
+Whenever a guest (a user without a registered account) returns to your webshop, the shopping cart is updated with the data saved in the cookie. If a guest creates an account, the saved data will be saved to Magento 2's core Persistent Shopping Cart session.
+
+For more information, go to [TIG.nl](https://tig.nl/persistent-shopping-cart-for-guests/).
 
 ### Installation
 
-The easiest way to install this Magento 2 extension is by using composer. If you don't know how to use Composer or don't have Composer installed, you can either install it by using Git or manually.
+The easiest way to install this Magento 2 extension is by using composer. If you don't know how to use Composer or can't install Composer, you can either install it by using Git or manually.
 
 #### System requirements
 
@@ -39,6 +44,18 @@ If in production mode, don't forget to run `php -f bin/magento setup:di:compile`
 
 ### Configuration
 
-The module can be enabled from within the Magento 2 backend
+The module can be enabled from within the Magento 2 backend: *Stores > Configuration > TIG > Persistent Shopping Cart for Guests > Enable Persistence for Guests*.
+
+This extension *extends* Magento 2's core Persistant Shopping Cart functionality with features for guests. Make sure *Stores > Configuration > Customers > Persistent Shopping Cart > Enable Persistence* is set to **Yes** and on the same page *Persist Shopping Cart* is set to **Yes**.
 
 ### FAQ
+
+##### Is this extension GDPR proof?
+
+In short; **Yes!** For two reasons:
+ 1. The cookie created by this module does not contain any information which can identify an individual. 
+ 2. The cookie will be only created once Magento 2's built-in cookie notice has been accepted.
+
+##### Is a guest's Wishlist and Add to Compare also saved?
+
+No, not yet. This might be implemented in a future release though. 
