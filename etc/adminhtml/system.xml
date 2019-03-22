@@ -34,14 +34,15 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
 <system>
     <section id="tig_persistentshoppingcart" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
-        <label>Persistent Shopping Cart</label>
+        <label>Persistent Shopping Cart for Guests</label>
         <tab>tig</tab>
         <resource>TIG_PersistentShoppingCart::config</resource>
         <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
             <label>Settings</label>
-            <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
-                <label>Enable Module</label>
+            <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Enable Persistence for Guests</label>
                 <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <comment><![CDATA[Make sure Customers > Persistent Shopping Cart > Enable Persistence is set to "Yes" and Persist Shopping Cart is set to "Yes".]]></comment>
             </field>
         </group>
     </section>

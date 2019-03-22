@@ -105,14 +105,6 @@ class QuoteCookie extends AbstractToken
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->cookieName;
-    }
-
-    /**
      * @return $this|\TIG\PersistentShoppingCart\Model\AbstractModel|\TIG\PersistentShoppingCart\Model\AbstractToken
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException

@@ -43,7 +43,7 @@ abstract class AbstractModel extends FrameworkAbstractModel
     /**
      * @var string
      */
-    public $cookieName = 'shopping_cart_cookie';
+    private $cookieName = 'shopping_cart_cookie';
 
     /**
      * @var \Magento\Framework\Session\Config\ConfigInterface $sessionConfig
@@ -113,6 +113,14 @@ abstract class AbstractModel extends FrameworkAbstractModel
      * @return \TIG\PersistentShoppingCart\Model\AbstractModel $this
      */
     abstract public function writeCookie();
+    
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->cookieName;
+    }
 
     /**
      * @return $this
@@ -173,11 +181,10 @@ abstract class AbstractModel extends FrameworkAbstractModel
      */
     private function processClientCookie($value)
     {
-        $metadata = $this->cookieMetadata
-            ->createPublicCookieMetadata()
-            ->setDuration($this->sessionConfig->getCookieLifetime())
-            ->setPath($this->sessionConfig->getCookiePath())
-            ->setDomain($this->sessionConfig->getCookieDomain());
+        $metadata = $this->cookieMetadata->createPublicCookieMetadata();
+        $metadata->setDuration($this->sessionConfig->getCookieLifetime());
+        $metadata->setPath($this->sessionConfig->getCookiePath());
+        $metadata->setDomain($this->sessionConfig->getCookieDomain());
 
         if (isset($value)) {
             $this->cookieManager->setPublicCookie($this->cookieName, $value, $metadata);

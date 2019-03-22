@@ -51,6 +51,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
         // @codingStandardsIgnoreEnd
         $setup->startSetup();
 
+        // @codingStandardsIgnoreLine
         $table = $setup->getConnection()->newTable(
             $setup->getTable('shopping_cart_cookie')
         )->addColumn(
@@ -81,7 +82,8 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $setup->getIdxName('shopping_cart_cookie', ['quote_id']),
             ['quote_id']
         );
-
+    
+        // @codingStandardsIgnoreLine
         $setup->getConnection()->createTable($table);
 
         $setup->endSetup();
