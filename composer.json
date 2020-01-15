@@ -4,8 +4,7 @@
   "version": "1.0.4",
   "require": {
     "php": "^7.0",
-    "ext-openssl": "*",
-    "magento/framework": "100.*|101.*|102.*",
+    "ext-openssl": "*"
   },
   "type": "magento2-module",
   "license": "CC-BY-NC-ND-3.0",
