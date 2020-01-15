@@ -6,7 +6,6 @@
     "php": "^7.0",
     "ext-openssl": "*",
     "magento/framework": "100.*|101.*|102.*",
-    "tig/core": "1.0.*"
   },
   "type": "magento2-module",
   "license": "CC-BY-NC-ND-3.0",
