@@ -44,6 +44,10 @@
                 <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 <comment><![CDATA[Make sure Customers > Persistent Shopping Cart > Enable Persistence is set to "Yes" and Persist Shopping Cart is set to "Yes".]]></comment>
             </field>
+            <field id="guest_cookie_lifetime" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Guest Cookie Cart Lifetime</label>
+                <validate>validate-number validate-zero-or-greater</validate>
+            </field>
         </group>
     </section>
 </system>

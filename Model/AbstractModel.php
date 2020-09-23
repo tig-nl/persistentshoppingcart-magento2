@@ -66,12 +66,18 @@ abstract class AbstractModel extends FrameworkAbstractModel
     private $helper;
 
     /**
+     * @var \TIG\PersistentShoppingCart\Helper\Configuration\GuestCookieCartLifetime
+     */
+    protected $guestCartCookieConfiguration;
+
+    /**
      * AbstractModel constructor.
      *
      * @param \Magento\Framework\Session\Config\ConfigInterface $sessionConfig
      * @param \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager
      * @param \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata
      * @param \TIG\PersistentShoppingCart\Helper\Data $helper
+     * @param \TIG\PersistentShoppingCart\Helper\Configuration\GuestCookieCartLifetime $guestCartCookieConfiguration
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
@@ -82,6 +88,7 @@ abstract class AbstractModel extends FrameworkAbstractModel
         CookieManagerInterface $cookieManager,
         CookieMetadataFactory $cookieMetadata,
         Helper $helper,
+        \TIG\PersistentShoppingCart\Helper\Configuration\GuestCookieCartLifetime $guestCartCookieConfiguration,
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
@@ -91,6 +98,7 @@ abstract class AbstractModel extends FrameworkAbstractModel
         $this->cookieManager  = $cookieManager;
         $this->cookieMetadata = $cookieMetadata;
         $this->helper         = $helper;
+        $this->guestCartCookieConfiguration = $guestCartCookieConfiguration;
 
         parent::__construct(
             $context,
@@ -182,7 +190,7 @@ abstract class AbstractModel extends FrameworkAbstractModel
     private function processClientCookie($value)
     {
         $metadata = $this->cookieMetadata->createPublicCookieMetadata();
-        $metadata->setDuration($this->sessionConfig->getCookieLifetime());
+        $metadata->setDuration($this->getCookieDuration());
         $metadata->setPath($this->sessionConfig->getCookiePath());
         $metadata->setDomain($this->sessionConfig->getCookieDomain());
 
@@ -193,5 +201,14 @@ abstract class AbstractModel extends FrameworkAbstractModel
         }
 
         $this->cookieManager->deleteCookie($this->cookieName);
+    }
+
+    private function getCookieDuration()
+    {
+        if($this->guestCartCookieConfiguration->getGuestCookieLifetimeConfig() > 0) {
+            return intval($this->guestCartCookieConfiguration->getGuestCookieLifetimeConfig());
+        }
+
+        return $this->sessionConfig->getCookieLifetime();
     }
 }

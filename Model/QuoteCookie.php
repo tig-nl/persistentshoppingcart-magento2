@@ -47,6 +47,9 @@ class QuoteCookie extends AbstractToken
     /** @var \Magento\Framework\App\Config\ScopeConfigInterface */
     private $scopeConfig;
 
+    /** @var \TIG\PersistentShoppingCart\Helper\Configuration\GuestCookieCartLifetime */
+    protected $guestCartCookieConfiguration;
+
     /**
      * Config path to module status
      */
@@ -75,6 +78,7 @@ class QuoteCookie extends AbstractToken
         \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager,
         \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata,
         \TIG\PersistentShoppingCart\Helper\Data $helper,
+        \TIG\PersistentShoppingCart\Helper\Configuration\GuestCookieCartLifetime $guestCartCookieConfiguration,
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
@@ -89,6 +93,7 @@ class QuoteCookie extends AbstractToken
             $cookieManager,
             $cookieMetadata,
             $helper,
+            $guestCartCookieConfiguration,
             $context,
             $registry,
             $resource,
