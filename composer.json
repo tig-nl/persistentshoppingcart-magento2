@@ -3,7 +3,7 @@
   "description": "Extends Magento 2's core Persistent Shopping Cart with sessions/cookies for Guests.",
   "version": "1.0.4",
   "require": {
-    "php": "~7.0|~7.1|~7.2",
+    "php": "~7.0|~7.1|~7.2|~7.3|~7.4",
     "ext-openssl": "*",
     "magento/framework": "100.*|101.*|102.*|103.*",
     "tig/core": "1.1.*"
