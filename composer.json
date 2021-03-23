@@ -5,7 +5,7 @@
   "require": {
     "php": "~7.0|~7.1|~7.2",
     "ext-openssl": "*",
-    "magento/framework": "100.*|101.*|102.*",
+    "magento/framework": "100.*|101.*|102.*|103.*",
     "tig/core": "1.1.*"
   },
   "type": "magento2-module",
