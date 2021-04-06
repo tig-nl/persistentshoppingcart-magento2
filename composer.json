@@ -1,7 +1,7 @@
 {
   "name": "tig/persistent-shopping-cart-magento2",
   "description": "Extends Magento 2's core Persistent Shopping Cart with sessions/cookies for Guests.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "require": {
     "php": "~7.0|~7.1|~7.2|~7.3|~7.4",
     "ext-openssl": "*",
