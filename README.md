@@ -1,4 +1,4 @@
-**After careful consideration, we have decided that we will not actively maintain the persistent shopping cart extension anymore. We do however invite all developers to fork and improve the module.**
+:vertical_traffic_light: :vertical_traffic_light: **After careful consideration, we have decided that we will not actively maintain the persistent shopping cart extension anymore. We do however invite all developers to fork and improve the module.** :vertical_traffic_light: :vertical_traffic_light: 
 
 # Persistent Shopping Cart for Guests
 
