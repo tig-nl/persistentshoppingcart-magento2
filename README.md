@@ -1,3 +1,5 @@
+**After careful consideration, we have decided that we will not actively maintain the persistent shopping cart extension anymore. We do however invite all developers to fork and improve the module.**
+
 # Persistent Shopping Cart for Guests
 
 ## A Magento 2 module developed by TIG
